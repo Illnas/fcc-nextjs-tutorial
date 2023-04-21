@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
@@ -27,7 +26,7 @@ export default function Home({data}) {
       <main className={styles.main}>
       {data && data.map(ev => (
              <a href={`/events/${ev.id}`} key={ev.id}>
-             <img src={ev.image} alt="" />
+             <img src={ev.image} alt="" width={200} height={200} />
              <h2>{ev.title}</h2>
              <p>{ev.description}</p>
            </a>
@@ -48,7 +47,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      title: 'Hello everyone!'
+      data: events_categories,
     }
   }
 }
