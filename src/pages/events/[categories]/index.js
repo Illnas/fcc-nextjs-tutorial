@@ -1,14 +1,16 @@
-const EventsPerCityPage = ({data}) => {
+import Link from "next/link";
+
+const EventsPerCityPage = ({ data, pageName }) => {
   return (
     <div>
-      <h1>Events in London</h1>
+      <h1>Events in {pageName}</h1>
       <div>
-        {data.map(ev => (
-          <a key={ev.id} href={`/events/${ev.city}/${ev.id}`}>
+        {data.map((ev) => (
+          <Link key={ev.id} href={`/events/${ev.city}/${ev.id}`} passHref>
             <img src={ev.image} alt={ev.title} />
             <h2>{ev.title}</h2>
             <p>{ev.description}</p>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
@@ -18,7 +20,7 @@ const EventsPerCityPage = ({data}) => {
 export default EventsPerCityPage;
 
 export async function getStaticPaths() {
-  const { events_categories } = await import('/data/data.json');
+  const { events_categories } = await import("/data/data.json");
   const allPaths = events_categories.map((ev) => {
     return {
       params: {
@@ -36,7 +38,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   console.log(context);
   const id = context?.params.categories;
-  const { allEvents } = await import('/data/data.json');
+  const { allEvents } = await import("/data/data.json");
 
   const data = allEvents.filter((ev) => ev.city === id);
 

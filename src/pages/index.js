@@ -1,10 +1,11 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({data}) {
+export default function Home({ data }) {
   return (
     <>
       <Head>
@@ -17,38 +18,25 @@ export default function Home({data}) {
       <header>
         <nav>
           <img />
-          <a href="/">Home</a>
-          <a href="/events">Events</a>
-          <a href="/about-us">About Us</a>
-          
+          <Link href="/" passHref>Home</Link>
+          <Link href="/events" passHref>Events</Link>
+          <Link href="/about-us" passHref>About Us</Link>
         </nav>
       </header>
-      <main className={styles.main}>
-      {data && data.map(ev => (
-             <a href={`/events/${ev.id}`} key={ev.id}>
-             <img src={ev.image} alt="" width={200} height={200} />
-             <h2>{ev.title}</h2>
-             <p>{ev.description}</p>
-           </a>
-      ))}
-
-      
-      </main>
+    
 
       <footer></footer>
     </>
-  )
+  );
 }
 
 export async function getServerSideProps() {
-
-  const { events_categories } = await import('/data/data.json')
-  console.log(events_categories)
+  const { events_categories } = await import("/data/data.json");
+  console.log(events_categories);
 
   return {
     props: {
       data: events_categories,
-    }
-  }
+    },
+  };
 }
-
