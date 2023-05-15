@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   const allPaths = allEvents.map((path) => {
     return {
       params: {
-        categories: path.city,
+        cat: path.city,
         id: path.id,
       },
     };
